@@ -33,7 +33,7 @@ class DiceTest {
 	void testRollNegative()  {
 		
 		assertThrows(Exception.class, () -> {
-			Dice dice = new Dice(0);
+			Dice dice = new Dice(-1);
 		});
 	}
 	
@@ -41,10 +41,10 @@ class DiceTest {
 	@Test
 	void testRepartitionRollingXtimesOneDice() throws Exception {
 		int faces = 10;
-		Dice dice = new Dice(faces);
 		ArrayList<Integer> results = new ArrayList<Integer>();
-		
 		int nbRolls = 100000; 
+		Dice dice = new Dice(faces);
+		
 		for (int i = 0; i <= nbRolls; i++) {
 			results.add(dice.roll());
 		}
