@@ -20,12 +20,14 @@ class DiceTest {
 		assertTrue("Too small", dice.roll() > 0);
 	}
 	
+	
 	@Test
 	void testRoll0() {
 		assertThrows(Exception.class, () -> {
 			Dice dice = new Dice(0);
 		});
 	}
+	
 	
 	@Test
 	void testRollNegative()  {
@@ -35,11 +37,13 @@ class DiceTest {
 		});
 	}
 	
+	
 	@Test
 	void testRepartitionRollingXtimesOneDice() throws Exception {
 		int faces = 10;
 		Dice dice = new Dice(faces);
 		ArrayList<Integer> results = new ArrayList<Integer>();
+		
 		int nbRolls = 100000; 
 		for (int i = 0; i <= nbRolls; i++) {
 			results.add(dice.roll());
@@ -49,22 +53,20 @@ class DiceTest {
 		int tolerance = 5;
 		int maxOccurences = (occurencesAverage) + (occurencesAverage/100*tolerance);
 		int minOccurences = (occurencesAverage) - (occurencesAverage/100*tolerance);
-		ArrayList <Integer> occurences = new ArrayList<Integer>();
+		
 		for (int i=1; i<=faces; i++ ) {
-			occurences.add(Collections.frequency(results, i));
 			assertTrue("Too much occurence for " + i, Collections.frequency(results, i) < maxOccurences );
 			assertTrue("Not enough occurence for " + i, Collections.frequency(results, i) > minOccurences );
-			System.out.println(occurences);
-			
 		}
-		
 	}
+	
 	
 	@Test
 	void testRepartitionRollingXDices() throws Exception {
 		int faces = 10;
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		int nbRolls = 100000; 
+		
 		for (int i = 0; i <= nbRolls; i++) {
 			Dice dice = new Dice(faces);
 			results.add(dice.roll());
@@ -74,16 +76,11 @@ class DiceTest {
 		int tolerance = 5;
 		int maxOccurences = (occurencesAverage) + (occurencesAverage/100*tolerance);
 		int minOccurences = (occurencesAverage) - (occurencesAverage/100*tolerance);
-		ArrayList <Integer> occurences = new ArrayList<Integer>();
-		for (int i=1; i<=faces; i++ ) {
-			occurences.add(Collections.frequency(results, i));
-			assertTrue("Too much occurence for " + i, Collections.frequency(results, i) < maxOccurences );
-			assertTrue("Not enough occurence for " + i, Collections.frequency(results, i) > minOccurences );
-			System.out.println(occurences);
-			
-		}
 		
+		for (int i=1; i<=faces; i++ ) {
+			assertTrue("Too much occurences for " + i, Collections.frequency(results, i) < maxOccurences );
+			assertTrue("Not enough occurences for " + i, Collections.frequency(results, i) > minOccurences );
+		}	
 	}
-	
 	
 }
